@@ -49,6 +49,14 @@ export default class Main extends Component {
 
     const { newRepo, repositories } = this.state;
 
+    // verifica input = repositórios cadastrados
+    repositories.map(repository => {
+      if (repository.name === newRepo) {
+        this.setState({ er: true });
+        throw e;
+      }
+    });
+
     const response = await api.get(`/repos/${newRepo}`).catch(() => {
       this.setState({ errors: true });
       throw e;
@@ -63,11 +71,12 @@ export default class Main extends Component {
       newRepo: '',
       loading: false,
       errors: false,
+      er: false,
     });
   };
 
   render() {
-    const { newRepo, repositories, loading, errors } = this.state;
+    const { newRepo, repositories, loading, errors, er } = this.state;
 
     return (
       <Container>
@@ -92,7 +101,8 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
-        {/* {errors ? <Erro>Repositório inválido!</Erro> : ''} */}
+        {er ? <Erro>Repositório já cadastrado!</Erro> : ''}
+        {errors ? <Erro>Repositório inválido!</Erro> : ''}
         <List>
           {repositories.map(repository => (
             <li key={repository.name}>
