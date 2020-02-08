@@ -63,7 +63,6 @@ export default class Main extends Component {
       newRepo: '',
       loading: false,
       errors: false,
-      er: false,
     });
   };
 
@@ -93,7 +92,7 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
-        {errors ? <Erro>Repositório inválido!</Erro> : ''}
+        {/* {errors ? <Erro>Repositório inválido!</Erro> : ''} */}
         <List>
           {repositories.map(repository => (
             <li key={repository.name}>
